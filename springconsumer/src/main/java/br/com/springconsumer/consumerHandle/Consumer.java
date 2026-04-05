@@ -9,11 +9,13 @@ import io.awspring.cloud.sqs.annotation.SqsListener;
 @Component
 public class Consumer {
     
-    @SqsListener("http://localhost:4566/000000000000/minha-fila")
+    @SqsListener("minha-fila")
     public void listener(String payload) throws Exception {
+        System.out.println("Payload >>> "+payload);
         ObjectMapper mapper = new ObjectMapper();
 
         ClienteRecord cliente = mapper.readValue(payload, ClienteRecord.class);
         System.out.println("Mensagem recebida: " + cliente.nome() + " - " + cliente.email());
+
     }
 }
